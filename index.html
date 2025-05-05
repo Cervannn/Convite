@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Aniversário</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f0f8ff, #5e5b5b, #1b1b1b);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .envelope {
+            width: 250px;
+            height: 150px;
+            background: #1f2f5c;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.6s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+        }
+
+        .envelope.open {
+            transform: rotateX(180deg);
+        }
+
+        .letter {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            max-width: 90%;
+            background: whitesmoke;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 30px;
+            z-index: 10;
+        }
+
+        .letter.show {
+            display: block;
+        }
+
+        .letter h1 {
+            font-size: 2em;
+            color: #000000;
+            margin-bottom: 10px;
+            animation: bounce 1s ease;
+        }
+
+        .letter p {
+            font-size: 1.1em;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .detalhe {
+            margin: 20px auto;
+            background: #e0e7ff;
+            padding: 15px;
+            border-radius: 15px;
+            width: fit-content;
+            animation: pulse 2s infinite;
+            text-align: left;
+        }
+
+        .detalhe p {
+            margin: 5px 0;
+            color: #000000;
+        }
+
+        iframe {
+            width: 100%;
+            height: 250px;
+            border: 0;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .confete {
+            position: fixed;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            opacity: 0.8;
+            border-radius: 50%;
+            animation: confeteFall 5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes confeteFall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 1;
+            }
+        }
+
+        #happyBirthday {
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3em;
+            color: #ff69b4;
+            text-shadow: 2px 2px #ffd700;
+            display: none;
+            animation: pop 1s ease forwards;
+            z-index: 20;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-20px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px #1e3a8a;
+            }
+
+            50% {
+                box-shadow: 0 0 20px #1e3a8a;
+            }
+
+            100% {
+                box-shadow: 0 0 10px #1e3a8a;
+            }
+        }
+
+        .whatsapp-button {
+            display: block;
+            background-color: #25D366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin: 20px auto;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            width: 50%;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #128C7E;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="envelope" onclick="abrirConvite()">
+        <span style="color: white; font-size: 1.2em;">📩 Você Foi Convidado</span>
+    </div>
+
+    <div class="letter" id="convite">
+        <h1>Você está convidado!</h1>
+        <p>Venha comemorar meu aniversário 🎉</p>
+        <div class="detalhe">
+            <p><strong>Data:</strong> 16 de Maio de 2025</p>
+            <p><strong>Hora:</strong> 19:30</p>
+            <p><strong>Local:</strong> Rua Alecio Sobrinho, 268 - Minha Casa</p>
+            <p><strong>Obs:</strong> O aniversário será realizado no condomínio Alto da Boa Vista / Quadra 7 Lote 5</p>
+            <p><strong>Obs:</strong> Em comemoração ao meu aniversário, organizarei uma noite de pizzas. Caso seja
+                possível, peço a gentileza de contribuir trazendo uma pizza de sua preferência. Sua presença será
+                muito bem-vinda!</p>
+        </div>
+        <p>Conto com a sua presença para tornar esse dia ainda mais especial!</p>
+        <!-- Botão de confirmação via WhatsApp -->
+        <a href="https://wa.me/5516994335177?text=Confirmo%20minha%20presença%20no%20seu%20anivers%C3%A1rio!"
+            class="whatsapp-button" target="_blank">
+            Confirmar presença no WhatsApp
+        </a>
+    </div>
+
+
+    <script>
+        function criarConfete() {
+            const cores = ['#ff69b4', '#ffd700', '#1e90ff', '#32cd32', '#ff4500'];
+            let confete = document.createElement('div');
+            confete.classList.add('confete');
+            confete.style.left = Math.random() * 100 + 'vw';
+            confete.style.background = cores[Math.floor(Math.random() * cores.length)];
+            confete.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.body.appendChild(confete);
+
+            confete.addEventListener('animationend', () => {
+                confete.remove();
+            });
+        }
+
+        setInterval(criarConfete, 200);
+
+        function abrirConvite() {
+            const envelope = document.querySelector('.envelope');
+            const convite = document.getElementById('convite');
+            const happyText = document.getElementById('happyBirthday');
+
+            envelope.classList.add('open');
+            convite.classList.add('show');
+            happyText.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
